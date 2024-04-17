@@ -1,30 +1,34 @@
 <?php
 
-namespace App\Models\MasterData;
+namespace App\Models\ManagementAccess;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Role extends Model
 {
-    //use HasFactory;
-        use SoftDeletes; 
-    //deklarasi tabel 
-    public $table = 'role'; 
-    //tipe data harus yyyy-mm-dd hh:mm:ss 
-    protected $dates = [ 
-        'created_at', 
-        'updated_at', 
-        'deleted_at' 
-    ]; 
+    // use HasFactory;
+    use SoftDeletes;
 
-    protected $fillable = [ 
-        'title', 
-        'created_at', 
-        'updated_at', 
-        'deleted_at' 
-    ]; 
+    // declare table name
+    public $table = 'role';
+
+    // this field must type date yyyy-mm-dd hh:mm:ss
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
+
+    // declare fillable fields
+    protected $fillable = [
+        'title',
+        'created_at',
+        'updated_at',
+        'deleted_at',
+    ];
 
     //one to many 
 public function permission_role() { 
@@ -33,6 +37,6 @@ public function permission_role() {
    //one to many 
    public function role_user() { 
     return $this->hasMany('App\Models\ManagementAccess\RoleUser' , 'role_id'); 
-   }
-
+   } 
+   
 }

@@ -4,12 +4,12 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
@@ -43,6 +43,15 @@ class User extends Authenticatable
     ];
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    /**
      * The accessors to append to the model's array form.
      *
      * @var array<int, string>
@@ -51,31 +60,19 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
-
     //use hasfactory; 
-    Use SoftDeletes; 
+    Use SoftDeletes;
+
     protected $dates = [ 
-        'created_at', 
-        'updated_at', 
-        'deleted_at', 
-        'email_verified_at' 
+    'created_at', 
+    'updated_at', 
+    'deleted_at', 
+    'email_verified_at' 
     ]; 
-    
+
     //one to many 
     public function appointment() { 
-    return $this->hasMany('App\Models\Operational\Appointment', 'user_id'); 
+    return $this->hasMany('App\Models\Operational\Appointment' , 'user_id'); 
     } 
 
     //one to one 

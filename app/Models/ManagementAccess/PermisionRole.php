@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class RoleUser extends Model
+class PermisionRole extends Model
 {
     // use HasFactory;
     use SoftDeletes;
 
     // declare table name
-    public $table = 'role_user';
+    public $table = 'permission_role';
 
     // this field must type date yyyy-mm-dd hh:mm:ss
     protected $dates = [
@@ -24,19 +24,20 @@ class RoleUser extends Model
 
     // declare fillable fields
     protected $fillable = [
+        'permission_id',
         'role_id',
-        'user_id',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
 
     //one to many 
-    public function user() { 
-        return $this->belongsTo('App\Models\User', 'user_id', 'id'); 
+    public function permission() { 
+    return $this-> belongsTo('App\Models\ManagementAccess\Permission' , 'permission_id', 'id'); 
     } 
+    
     //one to many 
     public function role() { 
-        return $this->belongsTo('App\Models\ManagementAccess\Role', 'role_id', 'id'); 
-    } 
+    return $this->belongsTo('App\Models\ManagementAccess\Role' , 'role_id', 'id'); 
+    }
 }
